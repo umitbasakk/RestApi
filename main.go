@@ -55,7 +55,7 @@ func main() {
 
 	articleTest1 := &models.Article{
 		ImageURL:       "asd",
-		Title:          "Hello World",
+		Title:          "Hello Worldx",
 		CreatedTime:    time.Now(),
 		Author:         *user,
 		CategoryID:     1,
