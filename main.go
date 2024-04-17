@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -16,10 +15,18 @@ func main() {
 	routers := gin.Default()
 	godotenv.Load(".env")
 
-	PORT := os.Getenv("PORT")
+	//PORT := os.Getenv("PORT")
+
+	contact := &models.ContactUser{
+		WhatsappURL:  "wp",
+		FacebookURL:  "fb",
+		InstagramURL: "ins",
+		TwitterURL:   "twt",
+	}
 
 	user := &models.User{
 		ProfileURL:         "asd",
+		Username:           "umitbsk",
 		FullName:           "Umit Basak",
 		Email:              "umitbasaak@gmail.com",
 		Mobile:             "05348297134",
@@ -28,11 +35,9 @@ func main() {
 		Followings:         12,
 		Followers:          12,
 		ProfileDescription: "hello world",
-		WhatsappURL:        "wp",
-		FacebookURL:        "fb",
-		InstagramURL:       "ins",
-		TwitterURL:         "twt",
+		ContactUser:        *contact,
 	}
+
 	comment_1 := &models.Comment{
 		User:       *user,
 		CommenText: "Comment 1",
@@ -93,7 +98,7 @@ func main() {
 	routers.GET("/articles", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{"message": articleArray})
 	})
-	routers.Run(":" + PORT)
+	routers.Run(":" + "8086")
 
 }
 
