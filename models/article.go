@@ -3,11 +3,13 @@ package models
 import "time"
 
 type Article struct {
-	ImageURL       string    `json:"imageURL"`
-	Title          string    `json:"title"`
-	CreatedTime    time.Time `json:"createdTime"`
-	Author         User      `json:"author"`
-	CategoryID     int       `json:"categoryID"`
-	ArticleContent string    `json:"articleContent"`
-	Comments       []Comment `json:"comments"`
+	Articleid      string    `json:"Articleid"`
+	Imageurl       string    `json:"Imageurl"`
+	Title          string    `json:"Title"`
+	Createdtime    time.Time `json:"Createdtime"`
+	Author         int       `json:"Author"`
+	AuthorObject   User
+	Category       int    `json:"Category"`
+	Articlecontent string `json:"Articlecontent"`
+	Comments       []Comment
 }

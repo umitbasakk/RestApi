@@ -3,15 +3,16 @@ package models
 import "time"
 
 type User struct {
-	ProfileURL         string      `json:"profileURL"`
-	Username           string      `json:"username"`
-	FullName           string      `json:"fullName"`
-	Email              string      `json:"email"`
-	Mobile             string      `json:"mobile"`
-	Gender             string      `json:"gender"`
-	Birthday           time.Time   `json:"birthday"`
-	Followings         int         `json:"followings"`
-	Followers          int         `json:"followers"`
-	ProfileDescription string      `json:"profileDescription"`
-	ContactUser        ContactUser `json:"contactUser"`
+	Userid             int       `json:"Userid"`
+	Profileimageurl    string    `json:"Profileimageurl"`
+	Username           string    `json:"Username"`
+	Password           string    `json:"Password"`
+	Fullname           string    `json:"Fullname" validate:"required,min=5,max=30"`
+	Email              string    `json:"Email"  validate:"email"`
+	Mobile             string    `json:"Mobile"`
+	Gender             string    `json:"Gender"`
+	Birthday           time.Time `json:"Birthday"`
+	Followings         int       `json:"Followings"`
+	Followers          int       `json:"Followers"`
+	Profiledescription string    `json:"Profiledescription"`
 }
