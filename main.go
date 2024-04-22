@@ -21,10 +21,13 @@ func main() {
 	routers.GET("/users/:userid", getHandler.GetUser)
 	routers.GET("/articles", getHandler.GetAllArticles)
 	routers.GET("/articles/:articleid", getHandler.GetArticle)
+	routers.GET("/categorys", getHandler.GetAllCategorys)
+	routers.GET("/categorys/:categoryid", getHandler.GetCategory)
 
 	//--- POST ---\\
 	routers.POST("/users", postHandler.CreateUser)
 	routers.POST("/articles", postHandler.CreateArticle)
+	routers.POST("/category", postHandler.CreateCategory)
 
 	routers.Run(":" + LISTENPORT)
 

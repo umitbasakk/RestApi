@@ -11,5 +11,6 @@ func UserValidation(user *models.User) (bool, error) {
 	if err := validate.Struct(user); err != nil {
 		return false, err
 	}
+
 	return true, nil
 }

@@ -1,6 +1,6 @@
 package models
 
-type Category struct {
+type TopicCategory struct {
 	Categoryid   string `json:"Categoryid"`
 	Categoryname string `json:"Categoryname"`
 }
