@@ -1,7 +1,7 @@
 package models
 
 type Comment struct {
-	Commentid   string `json:"Commentid"`
+	Commentid   int    `json:"Commentid"`
 	UserObject  User   `json:"UserObject"`
 	Users       int    `json:"Users"`
 	Commenttext string `json:"Commenttext"`
