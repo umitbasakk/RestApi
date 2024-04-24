@@ -3,9 +3,10 @@ package main
 import (
 	"ServerRestApi/handlers/GET"
 	"ServerRestApi/handlers/POST"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"os"
 )
 
 func main() {
@@ -34,7 +35,8 @@ func main() {
 	routers.GET("/comments", getHandler.GetAllComments)
 
 	//--- POST ---\\
-	routers.POST("/users", postHandler.CreateUser)
+	routers.POST("/register", postHandler.CreateUser)
+	routers.POST("/login", postHandler.LoginUser)
 	routers.POST("/articles", postHandler.CreateArticle)
 	routers.POST("/category", postHandler.CreateCategory)
 	routers.POST("/subcategory", postHandler.CreateSubCategory)
