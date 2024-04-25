@@ -1,11 +1,12 @@
 package GET
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/models"
-	"github.com/gin-gonic/gin"
+	"RestApi/db"
+	"RestApi/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (h *GetHandler) GetFollowersData(c *gin.Context) {

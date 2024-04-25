@@ -1,4 +1,4 @@
-module ServerRestApi
+module RestApi
 
 go 1.21
 

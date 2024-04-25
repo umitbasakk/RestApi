@@ -1,9 +1,10 @@
 package GET
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/models"
+	"RestApi/db"
+	"RestApi/models"
 	"encoding/json"
+
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/models"
+	"RestApi/db"
+	"RestApi/models"
 	"errors"
 )
 

@@ -1,9 +1,9 @@
 package POST
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/middleware"
-	"ServerRestApi/models"
+	"RestApi/db"
+	"RestApi/middleware"
+	"RestApi/models"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -29,7 +29,6 @@ func (h *PostHandler) LoginUser(g *gin.Context) {
 	} else {
 		g.Writer.Write([]byte("Başarıyla Giriş Yapıldı"))
 	}
-
 }
 
 func HasaUser(username string, password string) (bool, error) {

@@ -1,11 +1,12 @@
 package POST
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/middleware"
-	"ServerRestApi/models"
-	"github.com/gin-gonic/gin"
+	"RestApi/db"
+	"RestApi/middleware"
+	"RestApi/models"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (h *PostHandler) CreateArticle(c *gin.Context) {

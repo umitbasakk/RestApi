@@ -1,10 +1,11 @@
 package POST
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/models"
-	"github.com/gin-gonic/gin"
+	"RestApi/db"
+	"RestApi/models"
 	"math/rand"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (h *PostHandler) CreateComment(g *gin.Context) {

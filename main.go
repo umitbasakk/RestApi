@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ServerRestApi/handlers/GET"
-	"ServerRestApi/handlers/POST"
+	"RestApi/handlers/GET"
+	"RestApi/handlers/POST"
 	"os"
 
 	"github.com/gin-gonic/gin"

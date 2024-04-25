@@ -1,12 +1,13 @@
 package POST
 
 import (
-	"ServerRestApi/db"
-	"ServerRestApi/middleware"
-	"ServerRestApi/models"
-	"github.com/gin-gonic/gin"
+	"RestApi/db"
+	"RestApi/middleware"
+	"RestApi/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (h *PostHandler) FollowUser(c *gin.Context) {
