@@ -1,9 +1,11 @@
 package middleware
 
 import (
-	"RestApi/db"
-	"RestApi/models"
 	"errors"
+
+	"github.com/umitbasakk/RestApi/models"
+
+	"github.com/umitbasakk/RestApi/db"
 )
 
 func FollowValidation(followedbyId int, follower int) (bool, error) {

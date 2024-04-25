@@ -1,9 +1,10 @@
 package main
 
 import (
-	"RestApi/handlers/GET"
-	"RestApi/handlers/POST"
 	"os"
+
+	"github.com/umitbasakk/RestApi/handlers/GET"
+	"github.com/umitbasakk/RestApi/handlers/POST"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

@@ -1,10 +1,11 @@
 package POST
 
 import (
-	"RestApi/db"
-	"RestApi/middleware"
-	"RestApi/models"
 	"net/http"
+
+	"github.com/umitbasakk/RestApi/db"
+	"github.com/umitbasakk/RestApi/middleware"
+	"github.com/umitbasakk/RestApi/models"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"RestApi/models"
+	"github.com/umitbasakk/RestApi/models"
 
 	"github.com/go-playground/validator/v10"
 )

@@ -1,9 +1,10 @@
 package POST
 
 import (
-	"RestApi/db"
-	"RestApi/models"
 	"math/rand"
+
+	"github.com/umitbasakk/RestApi/db"
+	"github.com/umitbasakk/RestApi/models"
 
 	"github.com/gin-gonic/gin"
 )
