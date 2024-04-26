@@ -23,7 +23,9 @@ func (h *PostHandler) CreateUser(c *gin.Context) {
 	}
 	// Auth user
 	if result := db.GetDb().Create(user); result.Error != nil {
-		c.JSON(200, gin.H{"message": "error"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
+		return
+
 	}
-	c.JSON(200, gin.H{"message": user})
+	c.JSON(http.StatusCreated, gin.H{"message": user})
 }
