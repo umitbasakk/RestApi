@@ -1,6 +1,7 @@
 package POST
 
 import (
+	"math/rand"
 	"net/http"
 
 	"github.com/umitbasakk/RestApi/db"
@@ -15,6 +16,7 @@ func (h *PostHandler) CreateUser(c *gin.Context) {
 	var user = &models.User{}
 	c.BindJSON(user)
 	user.Password, _ = middleware.HashPassword(user.Password)
+	user.Userid = rand.Intn(999999999)
 	if res, err := middleware.UserValidation(user); res != true {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
