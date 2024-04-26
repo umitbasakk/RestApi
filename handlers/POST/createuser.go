@@ -1,6 +1,7 @@
 package POST
 
 import (
+	"encoding/json"
 	"math/rand"
 	"net/http"
 
@@ -14,7 +15,7 @@ import (
 func (h *PostHandler) CreateUser(c *gin.Context) {
 
 	var user = &models.User{}
-	c.BindJSON(user)
+	json.NewDecoder(c.Request.Body).Decode(&user)
 	user.Password, _ = middleware.HashPassword(user.Password)
 	user.Userid = rand.Intn(999999999)
 	if res, err := middleware.UserValidation(user); res != true {
