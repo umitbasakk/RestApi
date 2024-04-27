@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/umitbasakk/RestApi/db"
 	"github.com/umitbasakk/RestApi/models"
@@ -26,11 +27,18 @@ func UserValidation(user *models.User) (bool, error) {
 
 	for _, v := range *users {
 		if v.Email == user.Email {
+			return false, errors.New("Bu Email başka bir kullanıcı tarafından kullanılıyor")
+		}
+		if v.Username == user.Username {
 			return false, errors.New("Bu Kullanıcı adı başka bir kullanıcı tarafından kullanılıyor")
 		}
 		if v.Mobile == user.Mobile {
 			return false, errors.New("Bu numara başkası tarafından kullanılmaktadır.")
 		}
+	}
+
+	if strings.Contains(user.Email, "@gmail.com") {
+		return false, errors.New("Lütfen geçerli bir gmail adresi giriniz.")
 	}
 
 	return true, nil
