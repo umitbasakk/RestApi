@@ -41,6 +41,7 @@ func main() {
 	routers.POST("/articles", postHandler.CreateArticle)
 	routers.POST("/category", postHandler.CreateCategory)
 	routers.POST("/subcategory", postHandler.CreateSubCategory)
+	routers.POST("/subcategoryonuser/:userid", postHandler.AddSubCategoryOnUser)
 	routers.POST("/follow/:followedby/:followed", postHandler.FollowUser)
 	routers.POST("/comments", postHandler.CreateComment)
 
