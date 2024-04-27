@@ -1,16 +1,23 @@
 package middleware
 
 import (
-	"github.com/umitbasakk/RestApi/models"
+	"errors"
 
-	"github.com/go-playground/validator/v10"
+	"github.com/umitbasakk/RestApi/models"
 )
 
 func UserValidation(user *models.User) (bool, error) {
 
-	validate := validator.New()
-	if err := validate.Struct(user); err != nil {
-		return false, err
+	if len(user.Fullname) < 6 || user.Fullname == "" {
+		return false, errors.New("Adınızı boş veya 6 Karakterden az olmamalıdır")
+	}
+
+	if len(user.Username) < 6 || user.Username == "" {
+		return false, errors.New("Kullanıcı Adınızı boş veya 6 Karakterden az olmamalıdır")
+	}
+
+	if len(user.Password) < 8 {
+		return false, errors.New("Parolanız 8 karakterden fazla olmalıdır.")
 	}
 
 	return true, nil

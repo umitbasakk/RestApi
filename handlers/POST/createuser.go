@@ -16,12 +16,12 @@ func (h *PostHandler) CreateUser(c *gin.Context) {
 
 	var user = &models.User{}
 	json.NewDecoder(c.Request.Body).Decode(&user)
-	user.Password, _ = middleware.HashPassword(user.Password)
 	user.Userid = rand.Intn(999999999)
 	if res, err := middleware.UserValidation(user); res != true {
 		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
+	user.Password, _ = middleware.HashPassword(user.Password)
 	// Auth user
 	if result := db.GetDb().Create(user); result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "error"})
