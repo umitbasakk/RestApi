@@ -37,7 +37,7 @@ func UserValidation(user *models.User) (bool, error) {
 		}
 	}
 
-	if strings.Contains(user.Email, "@gmail.com") {
+	if !strings.Contains(user.Email, "@gmail.com") {
 		return false, errors.New("Lütfen geçerli bir gmail adresi giriniz.")
 	}
 
