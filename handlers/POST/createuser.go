@@ -28,5 +28,5 @@ func (h *PostHandler) CreateUser(c *gin.Context) {
 		return
 
 	}
-	c.JSON(http.StatusCreated, gin.H{"message": user})
+	c.JSON(http.StatusOK, gin.H{"message": "Başarıyla Kayıt Olundu"})
 }
