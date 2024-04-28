@@ -13,5 +13,6 @@ type User struct {
 	Birthday           time.Time `json:"Birthday"`
 	Followings         int       `json:"Followings"`
 	Followers          int       `json:"Followers"`
+	Token              string    `json:"Token"`
 	Profiledescription string    `json:"Profiledescription"`
 }
