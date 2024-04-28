@@ -1,9 +1,9 @@
 package POST
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/umitbasakk/RestApi/db"
 	"github.com/umitbasakk/RestApi/middleware"
@@ -24,11 +24,10 @@ func (h *PostHandler) LoginUser(g *gin.Context) {
 	res, err := HasaUser(LoginUserObj.Username, LoginUserObj.Password)
 
 	if err != nil || res != true {
-		errMarshal, _ := json.Marshal(err.Error())
-		g.Writer.Write([]byte(errMarshal))
+		g.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	} else {
-		g.Writer.Write([]byte("Başarıyla Giriş Yapıldı"))
+		g.JSON(http.StatusOK, gin.H{"message": "Başarıyla Giriş Yapıldı."})
 	}
 }
 
