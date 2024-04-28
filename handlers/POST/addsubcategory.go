@@ -14,7 +14,8 @@ func (h *PostHandler) AddSubCategoryOnUser(c *gin.Context) {
 	c.ShouldBindJSON(&topicList)
 	var matchList = make([]models.MatchTopic, len(topicList))
 	for i := 0; i < len(topicList); i++ {
-		matchList[i] = models.MatchTopic{Topicsubcategorys: topicList[i].Categoryid, Users: userid}
+		val, _ := strconv.Atoi(topicList[i].Categoryid)
+		matchList[i] = models.MatchTopic{Topicsubcategorys: val, Users: userid}
 	}
 	for i := 0; i < len(matchList); i++ {
 		db.GetDb().Table("topicsubcategorys_users").Create(matchList[i])

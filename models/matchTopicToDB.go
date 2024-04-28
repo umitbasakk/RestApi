@@ -1,6 +1,6 @@
 package models
 
 type MatchTopic struct {
-	Topicsubcategorys string `json:"Topicsubcategorys"`
-	Users             int    `json:"Users"`
+	Topicsubcategorys int `json:"Topicsubcategorys"`
+	Users             int `json:"Users"`
 }
