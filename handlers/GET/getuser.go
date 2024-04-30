@@ -28,11 +28,22 @@ func (h *GetHandler) GetUserIdParam(userID int) bool {
 	return true
 }
 
-func (h *GetHandler) GetUserTokenParam(userID string) (models.User, bool) {
-	var user = models.User{}
-	result := db.GetDb().Find(&user, "token = ?", userID)
+func (h *GetHandler) GetUserTokenParam(userID string) (models.ResponseUser, bool) {
+	var tempUser = models.User{}
+	var user = models.ResponseUser{}
+	result := db.GetDb().Find(&tempUser, "token = ?", userID)
 	if result.Row().Err() != nil {
 		return user, false
 	}
+	user.Username = tempUser.Username
+	user.Birthday = tempUser.Birthday
+	user.Email = tempUser.Email
+	user.Followers = tempUser.Followers
+	user.Followings = tempUser.Followings
+	user.Fullname = tempUser.Fullname
+	user.Gender = tempUser.Gender
+	user.Mobile = tempUser.Mobile
+	user.Profiledescription = tempUser.Profiledescription
+
 	return user, true
 }
