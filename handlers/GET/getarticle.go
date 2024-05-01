@@ -30,8 +30,24 @@ func getComments(articleID int) []models.Comment {
 	return comments
 }
 
-func getAuthor(userID int) models.User {
-	var user = &models.User{}
-	db.GetDb().Find(user, "userid = ?", userID)
-	return *user
+func getAuthor(userID int) models.ResponseUser {
+	var tempUser = models.User{}
+	var user = models.ResponseUser{}
+	db.GetDb().Find(&tempUser, "userid = ?", userID)
+	FillUser(&user, &tempUser)
+	return user
+}
+
+func FillUser(user *models.ResponseUser, tempUser *models.User) {
+	user.Username = tempUser.Username
+	user.Birthday = tempUser.Birthday
+	user.Email = tempUser.Email
+	user.Profileimageurl = tempUser.Profileimageurl
+	user.Followers = tempUser.Followers
+	user.Followings = tempUser.Followings
+	user.Fullname = tempUser.Fullname
+	user.Gender = tempUser.Gender
+	user.Mobile = tempUser.Mobile
+	user.Profiledescription = tempUser.Profiledescription
+	user.ArticleCount = GetCountArticleOnUser(tempUser.Userid)
 }

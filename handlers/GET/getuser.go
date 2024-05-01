@@ -45,6 +45,13 @@ func (h *GetHandler) GetUserTokenParam(userID string) (models.ResponseUser, bool
 	user.Gender = tempUser.Gender
 	user.Mobile = tempUser.Mobile
 	user.Profiledescription = tempUser.Profiledescription
-
+	user.ArticleCount = GetCountArticleOnUser(tempUser.Userid)
+	print(user.ArticleCount)
 	return user, true
+}
+
+func GetCountArticleOnUser(userID int) int {
+	var articles = []models.Article{}
+	db.GetDb().Find(&articles, "author = ?", userID)
+	return len(articles)
 }

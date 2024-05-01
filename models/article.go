@@ -8,7 +8,7 @@ type Article struct {
 	Title          string    `json:"Title" validation:"req"`
 	Createdtime    time.Time `json:"Createdtime" validation:"req"`
 	Author         int       `json:"Author" validation:"req"`
-	AuthorObject   User
+	AuthorObject   ResponseUser
 	Category       int    `json:"Category" validation:"req"`
 	Articlecontent string `json:"Articlecontent" validation:"req"`
 	Comments       []Comment
