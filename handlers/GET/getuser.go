@@ -38,6 +38,7 @@ func (h *GetHandler) GetUserTokenParam(userID string) (models.ResponseUser, bool
 	user.Username = tempUser.Username
 	user.Birthday = tempUser.Birthday
 	user.Email = tempUser.Email
+	user.Profileimageurl = tempUser.Profileimageurl
 	user.Followers = tempUser.Followers
 	user.Followings = tempUser.Followings
 	user.Fullname = tempUser.Fullname

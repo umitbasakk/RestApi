@@ -4,6 +4,7 @@ import "time"
 
 type ResponseUser struct {
 	Username           string    `json:"Username"`
+	Profileimageurl    string    `json:"Profileimageurl"`
 	Fullname           string    `json:"Fullname" validate:"required,min=5,max=30"`
 	Email              string    `json:"Email"  validate:"email"`
 	Mobile             string    `json:"Mobile"`

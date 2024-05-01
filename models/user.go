@@ -4,6 +4,7 @@ import "time"
 
 type User struct {
 	Userid             int       `json:"Userid"`
+	Profileimageurl    string    `json:"Profileimageurl"`
 	Username           string    `json:"Username"`
 	Password           string    `json:"Password"`
 	Fullname           string    `json:"Fullname" validate:"required,min=5,max=30"`
