@@ -19,7 +19,7 @@ func (h *GetHandler) GetAllArticlesToUser(g *gin.Context) {
 		currentArticle[i].AuthorObject = getAuthor(currentArticle[i].Author)
 	}
 
-	g.JSON(http.StatusOK, gin.H{"message": currentArticle})
+	g.JSON(http.StatusOK, currentArticle)
 }
 
 func TokentoUserID(token string) int {
