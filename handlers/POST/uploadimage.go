@@ -39,7 +39,7 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 	fileExt := strings.Split(handler.Filename, ".")[1]
 	fileID := fmt.Sprintf("%s.%s", filenameUnique, fileExt)
 
-	f, err := os.OpenFile("./Images/"+fileID, os.O_WRONLY|os.O_CREATE, 0666)
+	f, err := os.Create("./Images/" + fileID)
 
 	if err != nil {
 		g.JSON(http.StatusBadRequest, err.Error())
