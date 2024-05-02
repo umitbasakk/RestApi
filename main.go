@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 
 	"github.com/umitbasakk/RestApi/handlers/GET"
@@ -35,6 +36,7 @@ func main() {
 
 	routers.GET("/comments/:articleid", getHandler.GetComments)
 	routers.GET("/comments", getHandler.GetAllComments)
+	routers.StaticFS("/getimage", http.Dir("Images"))
 
 	//--- POST ---\\
 	routers.POST("/register", postHandler.CreateUser)
@@ -45,6 +47,7 @@ func main() {
 	routers.POST("/subcategoryonuser/:userid", postHandler.AddSubCategoryOnUser)
 	routers.POST("/follow/:followedby/:followed", postHandler.FollowUser)
 	routers.POST("/comments", postHandler.CreateComment)
+	routers.POST("/uploadimage/:token", postHandler.UploadImage)
 
 	routers.Run(":" + LISTENPORT)
 
