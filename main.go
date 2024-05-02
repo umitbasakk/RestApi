@@ -47,7 +47,7 @@ func main() {
 	routers.POST("/subcategoryonuser/:userid", postHandler.AddSubCategoryOnUser)
 	routers.POST("/follow/:followedby/:followed", postHandler.FollowUser)
 	routers.POST("/comments", postHandler.CreateComment)
-	routers.POST("/uploadimage/:token", postHandler.UploadImage)
+	routers.POST("/uploadimage", postHandler.UploadImage)
 
 	routers.Run(":" + LISTENPORT)
 

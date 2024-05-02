@@ -11,12 +11,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/umitbasakk/RestApi/db"
-	"github.com/umitbasakk/RestApi/handlers/GET"
 )
 
+type Picture struct {
+	Pictureid  string `json:"Pictureid"`
+	pictureurl string `json:"pictureurl"`
+}
+
 func (h *PostHandler) UploadImage(g *gin.Context) {
-	token := g.Param("token")
-	userId := GET.TokentoUserID(token)
+	picture := Picture{}
 	err := g.Request.ParseMultipartForm(200000)
 	if err != nil {
 		fmt.Println(err.Error(), err)
@@ -42,6 +45,7 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 		uniqueID, _ := exec.Command("uuidgen").Output()
 		filenameUnique := strings.Replace(string(uniqueID), "-", "", -1)
 		filenameUnique = filenameUnique[0 : len(filenameUnique)-1]
+		picture.Pictureid = filenameUnique
 		fileExt := strings.Split(files[i].Filename, ".")[1]
 		fileID := fmt.Sprintf("%s.%s", filenameUnique, fileExt)
 
@@ -57,13 +61,14 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 			return
 		}
 		fPath := "getimage/" + fileID
-		result := db.GetDb().Exec("UPDATE users SET profileimageurl=$1 WHERE userid=$2", fPath, userId)
+		picture.pictureurl = fPath
+		result := db.GetDb().Exec("INSERT INTO pictures VALUES($1,$2)", picture.Pictureid, picture.pictureurl)
 
 		if result.Error != nil {
 			g.JSON(http.StatusBadRequest, result.Error)
 			return
 		}
-		g.JSON(http.StatusOK, "Görsel Başarıyla Yüklendi")
+		g.JSON(http.StatusOK, gin.H{"message": picture.Pictureid})
 
 	}
 
