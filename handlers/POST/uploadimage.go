@@ -60,6 +60,6 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, result.Error)
 		return
 	}
-	g.JSON(http.StatusOK, gin.H{"message": picture.Pictureid})
+	g.JSON(http.StatusOK, gin.H{"message": picture.pictureurl})
 
 }
