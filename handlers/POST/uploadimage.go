@@ -45,7 +45,7 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 
 		uniqueID, _ := exec.Command("uuidgen").Output()
 		filenameUnique := strings.Replace(string(uniqueID), "-", "", -1)
-		filenameUnique = filenameUnique[0 : len(filenameUnique)-1]
+		//filenameUnique = filenameUnique[0 : len(filenameUnique)-1]
 		picture.Pictureid = filenameUnique
 		fileExt := strings.Split(files[i].Filename, ".")[1]
 		fileID := fmt.Sprintf("%s.%s", filenameUnique, fileExt)
