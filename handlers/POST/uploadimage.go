@@ -27,7 +27,8 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 	file, handler, err := g.Request.FormFile("image_file")
 
 	if err != nil {
-		fmt.Println("error")
+		g.JSON(http.StatusBadRequest, err.Error())
+		return
 		return
 	}
 	defer file.Close()
@@ -41,12 +42,16 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 	f, err := os.OpenFile("./Images/"+fileID, os.O_WRONLY|os.O_CREATE, 0666)
 
 	if err != nil {
-		fmt.Println("error var")
+		g.JSON(http.StatusBadRequest, err.Error())
+		return
 	}
 
 	defer f.Close()
-	io.Copy(f, file)
-
+	_, err = io.Copy(f, file)
+	if err != nil {
+		g.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 	fPath := "getimage/" + fileID
 	picture.pictureurl = fPath
 	result := db.GetDb().Exec("INSERT INTO pictures VALUES($1,$2)", picture.Pictureid, picture.pictureurl)
