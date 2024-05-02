@@ -39,6 +39,7 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 		defer file.Close()
 		if err != nil {
 			fmt.Println(err.Error())
+			g.JSON(http.StatusBadRequest, err.Error())
 			return
 		}
 
@@ -53,11 +54,13 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 		defer out.Close()
 		if err != nil {
 			fmt.Println("unable to create the file for writing")
+			g.JSON(http.StatusBadRequest, err.Error())
 			return
 		}
 		_, err = io.Copy(out, file)
 		if err != nil {
 			fmt.Println(err.Error())
+			g.JSON(http.StatusBadRequest, err.Error())
 			return
 		}
 		fPath := "getimage/" + fileID
