@@ -6,10 +6,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/umitbasakk/RestApi/db"
 )
 
@@ -43,9 +43,8 @@ func (h *PostHandler) UploadImage(g *gin.Context) {
 			return
 		}
 
-		uniqueID, _ := exec.Command("uuidgen").Output()
-		filenameUnique := strings.Replace(string(uniqueID), "-", "", -1)
-		filenameUnique = filenameUnique[0 : len(filenameUnique)-1]
+		uniqueID := uuid.New().String()
+		filenameUnique := strings.Replace(uniqueID, "-", "", -1)
 		picture.Pictureid = filenameUnique
 		fileExt := strings.Split(files[i].Filename, ".")[1]
 		fileID := fmt.Sprintf("%s.%s", filenameUnique, fileExt)
