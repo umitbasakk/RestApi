@@ -46,7 +46,6 @@ func FillUser(user *models.ResponseUser, tempUser *models.User) {
 	user.Followers = tempUser.Followers
 	user.Followings = tempUser.Followings
 	user.Fullname = tempUser.Fullname
-	user.Gender = tempUser.Gender
 	user.Mobile = tempUser.Mobile
 	user.Profiledescription = tempUser.Profiledescription
 	user.ArticleCount = GetCountArticleOnUser(tempUser.Userid)

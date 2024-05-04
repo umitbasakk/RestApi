@@ -42,7 +42,6 @@ func (h *GetHandler) GetUserTokenParam(userID string) (models.ResponseUser, bool
 	user.Followers = tempUser.Followers
 	user.Followings = tempUser.Followings
 	user.Fullname = tempUser.Fullname
-	user.Gender = tempUser.Gender
 	user.Mobile = tempUser.Mobile
 	user.Profiledescription = tempUser.Profiledescription
 	user.ArticleCount = GetCountArticleOnUser(tempUser.Userid)
