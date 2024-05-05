@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Article struct {
 	Articleid      string    `json:"Articleid" validation:"req"`
@@ -16,11 +18,12 @@ type Article struct {
 }
 
 type ArticlePost struct {
-	Articleid      string `json:"Articleid"`
-	Imageurl       string `json:"Imageurl"`
-	Title          string `json:"Title"`
-	Author         int    `json:"Author"`
-	Category       int    `json:"Category"`
-	Articlecontent string `json:"Articlecontent"`
-	Allowcomments  int    `json:"Allowcomments"`
+	Articleid      string    `json:"Articleid"`
+	Imageurl       string    `json:"Imageurl"`
+	Title          string    `json:"Title"`
+	Author         int       `json:"Author"`
+	Category       int       `json:"Category"`
+	Createdtime    time.Time `json:"Createdtime"`
+	Articlecontent string    `json:"Articlecontent"`
+	Allowcomments  int       `json:"Allowcomments"`
 }

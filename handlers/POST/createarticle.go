@@ -3,6 +3,7 @@ package POST
 import (
 	"github.com/umitbasakk/RestApi/middleware"
 	"net/http"
+	"time"
 
 	"github.com/umitbasakk/RestApi/db"
 	"github.com/umitbasakk/RestApi/handlers/GET"
@@ -17,7 +18,7 @@ func (h *PostHandler) CreateArticle(c *gin.Context) {
 	var currentArticle = &models.ArticlePost{}
 	c.BindJSON(currentArticle)
 	currentArticle.Author = userId
-
+	currentArticle.Createdtime = time.Now()
 	if result, err := middleware.ArticleValidation(currentArticle); result != true {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
