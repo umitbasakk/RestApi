@@ -1,10 +1,11 @@
 package POST
 
 import (
+	"github.com/umitbasakk/RestApi/middleware"
 	"net/http"
 
 	"github.com/umitbasakk/RestApi/db"
-	"github.com/umitbasakk/RestApi/middleware"
+	"github.com/umitbasakk/RestApi/handlers/GET"
 	"github.com/umitbasakk/RestApi/models"
 
 	"github.com/gin-gonic/gin"
@@ -12,15 +13,20 @@ import (
 
 func (h *PostHandler) CreateArticle(c *gin.Context) {
 
-	var currentArticle = &models.Article{}
+	var userId = GET.TokentoUserID(c.Param("userid"))
+	var currentArticle = &models.ArticlePost{}
 	c.BindJSON(currentArticle)
-	if result := db.GetDb().Create(currentArticle); result.Error != nil {
+	currentArticle.Author = userId
+
+	if result, err := middleware.ArticleValidation(currentArticle); result != true {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if result := db.GetDb().Table("articles").Create(currentArticle); result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error})
 		return
 	}
-	if result, err := middleware.ArticleValidation(currentArticle); result != true {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"message": currentArticle})
+
+	c.JSON(http.StatusOK, gin.H{"message": "Makale Başarıyla Paylaşıldı..."})
 }

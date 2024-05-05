@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 
 	"github.com/umitbasakk/RestApi/db"
@@ -23,6 +24,15 @@ func UserValidation(user *models.User) (bool, error) {
 
 	if len(user.Password) < 8 {
 		return false, errors.New("Parolanız 8 karakterden fazla olmalıdır.")
+	}
+	if len(user.Profiledescription) < 8 {
+		return false, errors.New("Profil Açıklamanız 50 karakterden fazla olmalıdır.")
+	}
+	if len(user.Mobile) != 10 {
+		return false, errors.New("Numaranın başında 0 olmayacak şekilde yazınız.")
+	}
+	if _, err := strconv.ParseInt(user.Mobile, 10, 64); err != nil {
+		return false, errors.New("Numaranız sadece rakamlardan oluşmalıdır")
 	}
 
 	for _, v := range *users {

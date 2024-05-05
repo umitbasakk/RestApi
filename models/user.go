@@ -5,6 +5,7 @@ import "time"
 type User struct {
 	Userid             int       `json:"Userid"`
 	Profileimageurl    string    `json:"Profileimageurl"`
+	Profiledescription string    `json:"Profiledescription"`
 	Username           string    `json:"Username"`
 	Password           string    `json:"Password"`
 	Fullname           string    `json:"Fullname" validate:"required,min=5,max=30"`
@@ -14,5 +15,4 @@ type User struct {
 	Followings         int       `json:"Followings"`
 	Followers          int       `json:"Followers"`
 	Token              string    `json:"Token"`
-	Profiledescription string    `json:"Profiledescription"`
 }
