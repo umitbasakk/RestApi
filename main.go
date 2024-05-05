@@ -41,7 +41,7 @@ func main() {
 	//--- POST ---\\
 	routers.POST("/register", postHandler.CreateUser)
 	routers.POST("/login", postHandler.LoginUser)
-	routers.POST("/articles", postHandler.CreateArticle)
+	routers.POST("/articles/:userid", postHandler.CreateArticle)
 	routers.POST("/category", postHandler.CreateCategory)
 	routers.POST("/subcategory", postHandler.CreateSubCategory)
 	routers.POST("/subcategoryonuser/:userid", postHandler.AddSubCategoryOnUser)
