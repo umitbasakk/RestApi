@@ -1,7 +1,7 @@
 package POST
 
 import (
-	"encoding/json"
+	"github.com/umitbasakk/RestApi/handlers/GET"
 	"github.com/umitbasakk/RestApi/middleware"
 	"net/http"
 	"time"
@@ -14,19 +14,15 @@ import (
 
 func (h *PostHandler) CreateArticle(c *gin.Context) {
 	var token = c.Param("userid")
-	var currentArticle = models.ArticlePost{}
-	json.NewDecoder(c.Request.Body).Decode(&currentArticle)
+	var userid = GET.TokentoUserID(token)
+	var currentArticle = &models.ArticlePost{}
+	c.ShouldBindJSON(currentArticle)
 	currentArticle.Createdtime = time.Now()
-
-	if result, err := middleware.ArticleValidation(&currentArticle); result != true {
+	currentArticle.Author = userid
+	if result, err := middleware.ArticleValidation(currentArticle); result != true {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	var user = models.User{}
-	db.GetDb().Find(&user, "token = ?", token)
-	currentArticle.Author = user.Userid
-
 	if result := db.GetDb().Table("articles").Create(currentArticle); result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error})
 		return
