@@ -21,5 +21,6 @@ func ArticleValidation(article *models.ArticlePost) (bool, error) {
 	if h.GetUserIdParam(article.Author) != true {
 		return false, errors.New("Böyle bir user bulunamadı")
 	}
+
 	return true, nil
 }
