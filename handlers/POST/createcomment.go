@@ -33,7 +33,7 @@ func (h *PostHandler) CreateComment(g *gin.Context) {
 	}
 
 	if res, err := commentCountUser(postComment.Users); res != true {
-		g.JSON(http.StatusOK, gin.H{"error": err.Error()})
+		g.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
