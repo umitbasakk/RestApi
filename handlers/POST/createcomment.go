@@ -1,10 +1,12 @@
 package POST
 
 import (
+	"errors"
 	"github.com/umitbasakk/RestApi/db"
 	"github.com/umitbasakk/RestApi/models"
 	"math/rand"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,6 +25,16 @@ func (h *PostHandler) CreateComment(g *gin.Context) {
 
 	if postComment.Users == -1 {
 		g.JSON(http.StatusBadRequest, gin.H{"error": "Böyle bir kullanıcı yok"})
+		return
+	}
+	if len(postComment.Commenttext) < 8 {
+		g.JSON(http.StatusBadRequest, gin.H{"error": "Yorumunuz 8 karakterden uzun olmalıdır."})
+		return
+	}
+
+	if res, err := commentCountUser(postComment.Users); res != true {
+		g.JSON(http.StatusOK, gin.H{"error": err.Error()})
+		return
 	}
 
 	db.GetDb().Create(&postComment)
@@ -38,4 +50,15 @@ func GetUserFromUsername(username string) int {
 		}
 	}
 	return -1
+}
+func commentCountUser(userID int) (bool, error) {
+	var comments = []models.PostComment{}
+	db.GetDb().Table("comments").Find(&comments)
+
+	for i, _ := range comments {
+		if userid, _ := strconv.Atoi(comments[i].Users); userid == userID {
+			return false, errors.New("Bu Makalede Zaten Mevcut Yorumunuz Bulunmakta.")
+		}
+	}
+	return true, nil
 }
