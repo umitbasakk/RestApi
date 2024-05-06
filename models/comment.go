@@ -7,3 +7,10 @@ type Comment struct {
 	Commenttext string       `json:"Commenttext"`
 	Articles    string       `json:"Articles"`
 }
+
+type PostComment struct {
+	Commentid   int    `json:"Commentid"`
+	Users       string `json:"Username"`
+	Commenttext string `json:"Commenttext"`
+	Articles    string `json:"Articles"`
+}
