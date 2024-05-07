@@ -48,6 +48,7 @@ func main() {
 	routers.POST("/follow/:followedby/:followed", postHandler.FollowUser)
 	routers.POST("/comments", postHandler.CreateComment)
 	routers.POST("/uploadimage", postHandler.UploadImage)
+	routers.POST("/bookmark", postHandler.CreateBookmark)
 
 	routers.Run(":" + LISTENPORT)
 
