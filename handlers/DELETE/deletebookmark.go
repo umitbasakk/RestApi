@@ -19,7 +19,7 @@ func (h *DeleteHandler) DeleteBookmark(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, gin.H{"error": "Bir Sorun Oluştu"})
 		return
 	}
-	if resp := db.GetDb().Table("bookmarks").Delete(&bookmark, "userid = ?", bookmark.Userid); resp.Error != nil {
+	if resp := db.GetDb().Table("bookmarks").Delete(&bookmark, "userid = ?,articleid=?", bookmark.Userid, bookmark.Articleid); resp.Error != nil {
 		g.JSON(http.StatusBadRequest, gin.H{"error": "Bir Sorun Oluştu"})
 		return
 	}
