@@ -20,8 +20,14 @@ func (h *GetHandler) GetBookmark(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, gin.H{"error": res.Error})
 		return
 	}
+	var responseBookmark = make([]models.ResponseBookmark, len(bookmarks))
+	for i, _ := range bookmarks {
+		resp := models.ResponseBookmark{}
+		resp.Articleid = bookmarks[i].Articleid
+		responseBookmark[i] = resp
+	}
 
-	g.JSON(http.StatusOK, gin.H{"message": bookmarks})
+	g.JSON(http.StatusOK, gin.H{"message": responseBookmark})
 
 }
 
