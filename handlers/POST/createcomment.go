@@ -2,11 +2,12 @@ package POST
 
 import (
 	"errors"
-	"github.com/umitbasakk/RestApi/db"
-	"github.com/umitbasakk/RestApi/models"
 	"math/rand"
 	"net/http"
 	"strconv"
+
+	"github.com/umitbasakk/RestApi/db"
+	"github.com/umitbasakk/RestApi/models"
 
 	"github.com/gin-gonic/gin"
 )

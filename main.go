@@ -36,6 +36,7 @@ func main() {
 
 	routers.GET("/comments/:articleid", getHandler.GetComments)
 	routers.GET("/comments", getHandler.GetAllComments)
+	routers.GET("/bookmark/:username", getHandler.GetBookmark)
 	routers.StaticFS("/getimage", http.Dir("data"))
 
 	//--- POST ---\\

@@ -9,3 +9,7 @@ type GetBookmark struct {
 	Username  string `json:"Username"`
 	Articleid int    `json:"Articleid"`
 }
+
+type ResponseBookmark struct {
+	Articleid int `json:"Articleid"`
+}
