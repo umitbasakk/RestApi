@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/umitbasakk/RestApi/handlers/DELETE"
 	"net/http"
 	"os"
 
@@ -19,6 +20,7 @@ func main() {
 	LISTENPORT := os.Getenv("LISTENPORT")
 	getHandler := GET.GetHandler{}
 	postHandler := POST.PostHandler{}
+	deleteHandler := DELETE.DeleteHandler{}
 	//--- GET ---\\
 	routers.GET("/users", getHandler.GetAllUsers)
 	routers.GET("/users/:userid", getHandler.GetUser)
@@ -50,6 +52,8 @@ func main() {
 	routers.POST("/comments", postHandler.CreateComment)
 	routers.POST("/uploadimage", postHandler.UploadImage)
 	routers.POST("/bookmark", postHandler.CreateBookmark)
+
+	routers.DELETE("/delete/bookmark", deleteHandler.DeleteBookmark)
 
 	routers.Run(":" + LISTENPORT)
 
