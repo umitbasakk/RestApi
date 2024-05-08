@@ -16,6 +16,15 @@ func (h *DeleteHandler) UnFollowUser(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, gin.H{"error": resp.Error})
 		return
 	}
+	if resp := db.GetDb().Table("users").Exec("UPDATE users SET followings=followings-1 WHERE username=$1", unfollowData.Followrequestusername); resp.Error != nil {
+		g.JSON(http.StatusBadRequest, gin.H{"error": resp.Error})
+		return
+	}
+
+	if resp := db.GetDb().Table("users").Exec("UPDATE users SET followers=followers-1 WHERE username=$1", unfollowData.Targetusername); resp.Error != nil {
+		g.JSON(http.StatusBadRequest, gin.H{"error": resp.Error})
+		return
+	}
 
 	g.JSON(http.StatusOK, gin.H{"message": "Başarıyla Takipten Çıktınız"})
 
