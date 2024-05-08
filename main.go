@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/umitbasakk/RestApi/handlers/DELETE"
 	"net/http"
 	"os"
+
+	"github.com/umitbasakk/RestApi/handlers/DELETE"
 
 	"github.com/umitbasakk/RestApi/handlers/GET"
 	"github.com/umitbasakk/RestApi/handlers/POST"
@@ -34,7 +35,7 @@ func main() {
 
 	routers.GET("/subcategorys", getHandler.GetAllSubCategorys)
 	routers.GET("/subcategory/:subcategoryid", getHandler.GetSubCategory)
-	routers.GET("/follow/:myid", getHandler.GetFollowersData)
+	routers.GET("/follow/:username", getHandler.GetFollowersData)
 
 	routers.GET("/comments/:articleid", getHandler.GetComments)
 	routers.GET("/comments", getHandler.GetAllComments)
@@ -48,12 +49,13 @@ func main() {
 	routers.POST("/category", postHandler.CreateCategory)
 	routers.POST("/subcategory", postHandler.CreateSubCategory)
 	routers.POST("/subcategoryonuser/:userid", postHandler.AddSubCategoryOnUser)
-	routers.POST("/follow/:followedby/:followed", postHandler.FollowUser)
+	routers.POST("/follow", postHandler.FollowUser)
 	routers.POST("/comments", postHandler.CreateComment)
 	routers.POST("/uploadimage", postHandler.UploadImage)
 	routers.POST("/bookmark", postHandler.CreateBookmark)
 
 	routers.DELETE("/delete/bookmark", deleteHandler.DeleteBookmark)
+	routers.DELETE("/delete/follow", deleteHandler.UnFollowUser)
 
 	routers.Run(":" + LISTENPORT)
 
