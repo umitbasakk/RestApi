@@ -29,12 +29,20 @@ func (h *PostHandler) CreateBookmark(g *gin.Context) {
 
 func hasBookmark(bookmark models.Bookmark) (bool, error) {
 	var allbookmarks = []models.Bookmark{}
+	var articleonBookmark = models.Article{}
 	db.GetDb().Table("bookmarks").Find(&allbookmarks, "userid = ?", bookmark.Userid)
+	db.GetDb().Table("articles").Find(&articleonBookmark, "articleid = ?", bookmark.Articleid)
+
+	if bookmark.Userid == articleonBookmark.Author {
+		return false, errors.New("Kendi makalenize mark ekleyemezsiniz.")
+	}
 
 	for _, v := range allbookmarks {
+
 		if v.Userid == bookmark.Userid && v.Articleid == bookmark.Articleid {
 			return false, errors.New("Böyle bir mark zaten mevcut")
 		}
+
 	}
 	return true, nil
 }
