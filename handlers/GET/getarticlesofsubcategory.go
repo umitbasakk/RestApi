@@ -8,19 +8,39 @@ import (
 	"strconv"
 )
 
+type TopicUserArticle struct {
+	Topicsubcategorys int `json:"Topicsubcategorys"`
+	Users             int `json:"Users"`
+}
+
 func (h *GetHandler) GetArticlesofSubcategory(g *gin.Context) {
 	id := g.Param("subcategoryid")
-	var articles = make([]models.Article, 1)
-	if err := db.GetDb().Exec("SELECT * FROM articles INNER JOIN topicsubcategorys_users on articles.author = topicsubcategorys_users.users WHERE topicsubcategorys_users.topicsubcategorys=$1", id).Table("articles").Find(&articles); err.Error != nil {
+	var topicList = make([]TopicUserArticle, 0)
+	var articleList = make([]models.Article, 0)
+	var articresponseListle = make([]models.Article, 0)
+
+	if err := db.GetDb().Table("topicsubcategorys_users").Find(&topicList, "topicsubcategorys = ? ", id); err.Error != nil {
 		g.JSON(http.StatusBadRequest, err.Error)
 		return
 	}
 
-	for i, _ := range articles {
-		currentArticleID, _ := strconv.Atoi(articles[i].Articleid)
-		articles[i].Comments = getComments(currentArticleID)
-		articles[i].AuthorObject = getAuthor(articles[i].Author)
+	if err := db.GetDb().Table("articles").Find(&articleList); err.Error != nil {
+		g.JSON(http.StatusBadRequest, err.Error)
+		return
+	}
+	for _, v := range topicList {
+		for j, z := range articleList {
+			if v.Users == z.Author {
+				articresponseListle = append(articresponseListle, articleList[j])
+			}
+		}
 	}
 
-	g.JSON(http.StatusOK, articles)
+	for i, _ := range articresponseListle {
+		currentArticleID, _ := strconv.Atoi(articresponseListle[i].Articleid)
+		articresponseListle[i].Comments = getComments(currentArticleID)
+		articresponseListle[i].AuthorObject = getAuthor(articresponseListle[i].Author)
+	}
+
+	g.JSON(http.StatusOK, articresponseListle)
 }
