@@ -29,6 +29,7 @@ func main() {
 	routers.GET("/articles", getHandler.GetAllArticles)
 	routers.GET("/articles/get/:userid", getHandler.GetAllArticlesToUser)
 	routers.GET("/articles/:articleid", getHandler.GetArticle)
+	routers.GET("/articles/subcategory/:subcategoryid", getHandler.GetArticlesofSubcategory)
 
 	routers.GET("/categorys", getHandler.GetAllCategorys)
 	routers.GET("/categorys/:categoryid", getHandler.GetCategory)

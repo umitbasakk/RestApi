@@ -21,9 +21,9 @@ type ArticlePost struct {
 	Articleid      string    `json:"Articleid"`
 	Imageurl       string    `json:"Imageurl"`
 	Title          string    `json:"Title"`
+	Createdtime    time.Time `json:"Createdtime"`
 	Author         int       `json:"Author"`
 	Category       int       `json:"Category"`
-	Createdtime    time.Time `json:"Createdtime"`
 	Articlecontent string    `json:"Articlecontent"`
 	Allowcomments  int       `json:"Allowcomments"`
 }
