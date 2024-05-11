@@ -12,6 +12,7 @@ func (h *PostHandler) VerifyUser(g *gin.Context) {
 	SMSVerify := models.SMSRequest{}
 	g.ShouldBindJSON(&postSmsVerify)
 	userID := GetUserFromUsername(postSmsVerify.Username)
+	db.GetDb().Table("verifyuser").Find(&SMSVerify, "userid = ?", userID)
 
 	if postSmsVerify.Verifycode == SMSVerify.Verifycode {
 		db.GetDb().Table("verifyuser").Exec("UPDATE verifyuser SET verifystatus=$1 WHERE userid=$2", 1, userID)
