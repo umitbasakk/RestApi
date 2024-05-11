@@ -54,6 +54,8 @@ func main() {
 	routers.POST("/comments", postHandler.CreateComment)
 	routers.POST("/uploadimage", postHandler.UploadImage)
 	routers.POST("/bookmark", postHandler.CreateBookmark)
+	routers.POST("/sms/send", postHandler.SendSms)
+	routers.POST("/verify", postHandler.VerifyUser)
 
 	routers.DELETE("/delete/bookmark", deleteHandler.DeleteBookmark)
 	routers.DELETE("/delete/follow", deleteHandler.UnFollowUser)

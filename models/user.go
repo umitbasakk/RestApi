@@ -16,3 +16,8 @@ type User struct {
 	Followers          int       `json:"Followers"`
 	Token              string    `json:"Token"`
 }
+
+type LoginResponse struct {
+	Token      string `json:"Token"`
+	Statuscode int    `json:"Statuscode"`
+}
