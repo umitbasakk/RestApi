@@ -58,15 +58,16 @@ func (h *PostHandler) LoginUser(g *gin.Context) {
 func AccountVerify(user models.User) (bool, string) {
 	smsonUser := models.SMSRequest{}
 	res := db.GetDb().Table("verifyuser").Find(&smsonUser, "userid = ?", user.Userid)
+	userVerifyCode := strconv.Itoa(rand.Intn(999999))
 
-	if res.RowsAffected == 0 {
-		userVerifyCode := strconv.Itoa(rand.Intn(999999))
-		db.GetDb().Table("verifyuser").Exec("INSERT INTO verifyuser(userid,verifycode) VALUES($1,$2)", user.Userid, userVerifyCode)
+	if smsonUser.Verifystatus == 0 {
+		db.GetDb().Table("verifyuser").Exec("UPDATE verifyuser SET verifycode=$1 WHERE userid=$2", userVerifyCode, user.Userid)
 		return false, userVerifyCode
 	}
 
-	if smsonUser.Verifystatus == 0 {
-		return false, smsonUser.Verifycode
+	if res.RowsAffected == 0 {
+		db.GetDb().Table("verifyuser").Exec("INSERT INTO verifyuser(userid,verifycode) VALUES($1,$2)", user.Userid, userVerifyCode)
+		return false, userVerifyCode
 	}
 
 	return true, ""
