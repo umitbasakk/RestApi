@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,14 +38,17 @@ func (h *PostHandler) LoginUser(g *gin.Context) {
 	if err != nil || res != true {
 		g.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
-	} else if resp, code := AccountVerify(user); resp != true {
-		fmt.Printf("Code: %s Phone: %s", code, user.Mobile)
+	} else if resp, code, codeResp := AccountVerify(user); resp != true {
 
-		_, err := SendSms(code, user.Mobile)
+		if codeResp != false {
+			_, err := SendSms(code, user.Mobile)
 
-		if err != nil {
-			fmt.Printf("error:", err.Error())
+			if err != nil {
+				fmt.Printf("error:", err.Error())
+			}
+
 		}
+
 		LoginResponse.Token = tokenString
 		LoginResponse.Statuscode = 202
 		g.JSON(http.StatusAccepted, LoginResponse)
@@ -55,22 +59,30 @@ func (h *PostHandler) LoginUser(g *gin.Context) {
 		g.JSON(http.StatusOK, LoginResponse)
 	}
 }
-func AccountVerify(user models.User) (bool, string) {
+func AccountVerify(user models.User) (bool, string, bool) {
 	smsonUser := models.SMSRequest{}
 	res := db.GetDb().Table("verifyuser").Find(&smsonUser, "userid = ?", user.Userid)
 	userVerifyCode := strconv.Itoa(rand.Intn(999999))
 
-	if smsonUser.Verifystatus == 0 {
-		db.GetDb().Table("verifyuser").Exec("UPDATE verifyuser SET verifycode=$1 WHERE userid=$2", userVerifyCode, user.Userid)
-		return false, userVerifyCode
-	}
-
 	if res.RowsAffected == 0 {
-		db.GetDb().Table("verifyuser").Exec("INSERT INTO verifyuser(userid,verifycode) VALUES($1,$2)", user.Userid, userVerifyCode)
-		return false, userVerifyCode
+		db.GetDb().Table("verifyuser").Exec("INSERT INTO verifyuser(userid,verifycode,created_at,updated_at) VALUES($1,$2,$3,$4)", user.Userid, userVerifyCode, time.Now(), time.Now())
+		return false, userVerifyCode, true
+	}
+	if smsonUser.Verifystatus == 0 {
+		currentTime := time.Now().Format("2006-01-02-15:04:05")
+		smsSendTime := smsonUser.Updated_at.Format("2006-01-02-15:04:05")
+		c, _ := time.Parse("2006-01-02-15:04:05", currentTime)
+		st, _ := time.Parse("2006-01-02-15:04:05", smsSendTime)
+		diffTime := c.Sub(st).Seconds()
+		if diffTime < 180 {
+			return false, smsonUser.Verifycode, false
+		} else {
+			db.GetDb().Table("verifyuser").Exec("UPDATE verifyuser SET verifycode=$1 , updated_at=$2 WHERE userid=$3", userVerifyCode, time.Now(), user.Userid)
+			return false, userVerifyCode, true
+		}
 	}
 
-	return true, ""
+	return true, "", false
 }
 func HasaUser(username string, password string) (bool, models.User, error) {
 
